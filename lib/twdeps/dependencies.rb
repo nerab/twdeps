@@ -1,16 +1,19 @@
 module TaskWarrior
   module Dependencies
-    class Dependency < Struct.new(:name, :version)
+    class Dependency < Struct.new(:name)
+      def to_s
+        name
+      end
     end
     
     # 
     # Refactored version of https://github.com/glejeune/Ruby-Graphviz/blob/852ee119e4e9850f682f0a0089285c36ee16280f/bin/gem2gv
     #
     class Scanner
-      def initialize(gemName, version = ">0")
+      def initialize(gemName)
         @graph = GraphViz::new(:G)
         @dependencies = []
-        resolve(Dependency.new(gemName, version))
+        resolve(Dependency.new(gemName))
       end
       
       # TODO should be passed an IO object to write to
@@ -31,18 +34,18 @@ module TaskWarrior
           end
         end
       end
-
-      def retrieveDependencies(dependency)
+      
+      #
+      # Returns a list of things that +thing+ depends on
+      #
+      def retrieveDependencies(thing)
         dependencies = []
     
-        gem_dependency = Gem::Dependency.new(dependency.name, dependency.version)
         fetcher = Gem::SpecFetcher.fetcher
     
-        fetcher.find_matching(gem_dependency).each do |spec_tuple, source_uri|
-          spec = fetcher.fetch_spec spec_tuple, URI.parse(source_uri)
-      
-          spec.dependencies.each do |dep|
-            dependency = Dependency.new(dep.name, '>0')
+        fetcher.find_matching(Gem::Dependency.new(thing.name, '>0')).each do |spec_tuple, source_uri|
+          fetcher.fetch_spec(spec_tuple, URI.parse(source_uri)).dependencies.each do |dep|
+            dependency = Dependency.new(dep.name)
             dependencies << dependency unless dependencies.include?(dependency)
           end
         end
@@ -50,17 +53,17 @@ module TaskWarrior
         return dependencies
       end
   
-      def create_edges(dependency, nodes)
-        nodeA = find_or_create_node(dependency.name, dependency.version)
+      def create_edges(thing, nodes)
+        nodeA = find_or_create_node(thing)
     
         nodes.each do |node|
-          nodeB = find_or_create_node(node.name, node.version)
+          nodeB = find_or_create_node(node)
           @graph.add_edges(nodeA, nodeB)
         end
       end
       
-      def find_or_create_node(name, version)
-        return @graph.get_node(name) || @graph.add_nodes(name, "label" => "#{name} #{version}")
+      def find_or_create_node(thing)
+        return @graph.get_node(thing.hash.to_s) || @graph.add_nodes(thing.hash.to_s, "label" => thing.to_s)
       end
     end
   end
