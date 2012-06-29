@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DependencyBuilderTest < TaskWarrior::Test::Integration::TestCase
+class DependencyTest < TaskWarrior::Test::Integration::TestCase
   def test_no_dependencies
     exec("import #{fixture('no_deps.json')}")
     tasks = export_tasks

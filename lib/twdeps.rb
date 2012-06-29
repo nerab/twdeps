@@ -1,7 +1,11 @@
 require "twdeps/version"
-require "twdeps/dependencies"
+require "twdeps/scanner"
+require "twdeps/task"
+require "twdeps/task_resolver"
+require "twdeps/task_mapper"
 
 require "graphviz"
+require "json"
 
 module TaskWarrior
   module Dependencies

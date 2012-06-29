@@ -4,8 +4,8 @@ require File.expand_path('../lib/twdeps/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Nicholas E. Rabenau"]
   gem.email         = ["nerab@gmx.net"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Takes a TaskWarrior export and emits a graph that visualizes the dependencies between tasks.}
+  gem.summary       = %q{Visualizes dependencies between TaskWarrior tasks.}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
@@ -16,5 +16,8 @@ Gem::Specification.new do |gem|
   gem.version       = TaskWarrior::Dependencies::VERSION
   
   gem.add_dependency 'ruby-graphviz', '~> 1.0'
+  gem.add_dependency 'activemodel', '~> 3.2'
+  gem.add_dependency 'activesupport'#, '~> 3.2'
   gem.add_development_dependency 'twtest'
+  gem.add_development_dependency 'pry'
 end

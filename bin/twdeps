@@ -11,5 +11,5 @@ end
 # require output file argument if $stdout.tty?, otherwise it's being piped
 #outfile = ARGV.shift || die('Missing argument for output file')
 
-g = TaskWarrior::Dependencies::Scanner.new('ronn')
-puts g.render('svg')
+include TaskWarrior::Dependencies
+puts Scanner.new(nil, TaskResolver.new(ARGF.read)).render('svg')
