@@ -3,28 +3,13 @@
 require 'bundler'
 Bundler.require
 
+def die(msg)
+  STDERR.puts "#{File.basename($0)} - #{msg}"
+  exit 1
+end
+
 # require output file argument if $stdout.tty?, otherwise it's being piped
-outfile = "#{ARGV.shift}.png"
+#outfile = ARGV.shift || die('Missing argument for output file')
 
-g = GraphViz::new("G")
-
-main        = g.add_nodes("main")
-parse       = g.add_nodes("parse")
-execute     = g.add_nodes("execute")
-init        = g.add_nodes("init")
-cleanup     = g.add_nodes("cleanup")
-make_string = g.add_nodes("make_string")
-printf      = g.add_nodes("printf")
-compare     = g.add_nodes("compare")
-
-g.add_edges( main, parse )
-g.add_edges( parse, execute )
-g.add_edges( main, init )
-g.add_edges( main, cleanup )
-g.add_edges( execute, make_string )
-g.add_edges( execute, printf )
-g.add_edges( init, make_string )
-g.add_edges( main, printf )
-g.add_edges( execute, compare )
-
-g.output(:png => outfile)
+g = TaskWarrior::Dependencies::Scanner.new('ronn')
+puts g.render('svg')

@@ -16,6 +16,10 @@ Visualizes dependencies between TaskWarrior tasks.
   
   # Create a graph from a previously exported file
   cat tasks.json | twdeps > deps.png
+  
+  # Display graph in browser without creating an intermediate file
+  # Requires [bcat](http://rtomayko.github.com/bcat/) to be installed
+  task export | twdeps --format svg | bcat
 
 ## Limitations
 

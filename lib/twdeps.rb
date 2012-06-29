@@ -1,4 +1,5 @@
 require "twdeps/version"
+require "twdeps/dependencies"
 
 require "graphviz"
 
