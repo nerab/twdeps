@@ -8,18 +8,18 @@ Visualizes dependencies between TaskWarrior tasks.
 
 ## Usage
 
-  # Create a dependency graph as PNG and pipe it to a file
-  task export rc.json.array=on rc.verbose=nothing | twdeps > deps.png
+    # Create a dependency graph as PNG and pipe it to a file
+    task export rc.json.array=on rc.verbose=nothing | twdeps > deps.png
   
-  # Same but override format. Use the file option to specify the file name to write to
-  task export rc.json.array=on rc.verbose=nothing | twdeps --format svg --file deps.svg
+    # Same but override format. Use the file option to specify the file name to write to
+    task export rc.json.array=on rc.verbose=nothing | twdeps --format svg --file deps.svg
   
-  # Create a graph from a previously exported file
-  cat tasks.json | twdeps > deps.png
+    # Create a graph from a previously exported file
+    cat tasks.json | twdeps > deps.png
   
-  # Display graph in browser without creating an intermediate file
-  # Requires [bcat](http://rtomayko.github.com/bcat/) to be installed
-  task export | twdeps --format svg | bcat
+    # Display graph in browser without creating an intermediate file
+    # Requires [bcat](http://rtomayko.github.com/bcat/) to be installed
+    task export | twdeps --format svg | bcat
 
 ## Limitations
 
