@@ -14,7 +14,7 @@ Given a set of interdependent tasks described in the TaskWarrior [tutorial](http
 
 Result:
 
-![party](./raw/master/examples/party.png)
+![party](/nerab/twdeps/raw/master/examples/party.png)
 
 ## Installation
 
