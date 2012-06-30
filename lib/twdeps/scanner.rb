@@ -18,9 +18,15 @@ module TaskWarrior
         end
       end
       
+      #
+      # Build a new Scanner for +thing+, using +resolver+ to find thing's dependencies.
+      #
+      # +thing+ may be nil, and it depends on the behavior of the resolver what happens.
+      #
       def initialize(thing = nil, resolver)
         @graph = GraphViz::new(:G)
         @dependencies = []
+        @edges = []
         @resolver = resolver
         resolve(thing)
       end
@@ -33,7 +39,7 @@ module TaskWarrior
       def resolve(thing = nil)
         if thing.nil?
           @resolver.dependencies.each{|t| resolve(t)}
-        else        
+        else
           dependencies = @resolver.dependencies(thing)
           create_edges(thing, dependencies)
         
@@ -52,12 +58,20 @@ module TaskWarrior
     
         nodes.each do |node|
           nodeB = find_or_create_node(node)
-          @graph.add_edges(nodeA, nodeB)
+          create_edge(nodeA, nodeB)
         end
       end
       
       def find_or_create_node(thing)
-        return @graph.get_node(thing.id) || @graph.add_nodes(thing.id, :label => thing.to_s)
+        @graph.get_node(thing.id) || @graph.add_nodes(thing.id, :label => thing.to_s)
+      end
+
+      def create_edge(nodeA, nodeB)
+        edge = [nodeA, nodeB]
+        unless @edges.include?(edge)
+          @edges << edge
+          @graph.add_edges(nodeA, nodeB)
+        end
       end
     end
   end
