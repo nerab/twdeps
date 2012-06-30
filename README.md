@@ -2,6 +2,12 @@
 
 Visualizes dependencies between TaskWarrior tasks.
 
+[![Build Status](https://secure.travis-ci.org/nerab/twdeps.png?branch=master)](http://travis-ci.org/nerab/twdeps)
+
+## Example Output
+
+![party](examples/party.png)
+
 ## Installation
 
     $ gem install twdeps
@@ -9,21 +15,29 @@ Visualizes dependencies between TaskWarrior tasks.
 ## Usage
 
     # Create a dependency graph as PNG and pipe it to a file
+    # See [Limitations](Limitations) below for why we need the extra task parms
     task export rc.json.array=on rc.verbose=nothing | twdeps > deps.png
   
-    # Same but override format. Use the file option to specify the file name to write to
-    task export rc.json.array=on rc.verbose=nothing | twdeps --format svg --file deps.svg
-  
+    # Same but spefify output format
+    task export | twdeps --format svg > deps.svg
+
     # Create a graph from a previously exported file
+    task export > tasks.json
     cat tasks.json | twdeps > deps.png
   
     # Display graph in browser without creating an intermediate file
-    # Requires [bcat](http://rtomayko.github.com/bcat/) to be installed
+    # Requires bcat to be installed
     task export | twdeps --format svg | bcat
+
+## Dependencies
+
+The graph is generated with [ruby-graphwiz](https://github.com/glejeune/Ruby-Graphviz), which in turn requires a local [Graphviz](http://graphviz.org/) installation (e.g. `brew install graphviz`).
+
+[bcat](http://rtomayko.github.com/bcat/) is required for piping into a browser.
 
 ## Limitations
 
-TaskWarrior 2.0 needs the command line options `rc.json.array=on` and `rc.verbose=nothing` due to [two](http://taskwarrior.org/issues/1017) [bugs](http://taskwarrior.org/issues/1013) in JSON export.
+Due to [two](http://taskwarrior.org/issues/1017) [bugs](http://taskwarrior.org/issues/1013) in JSON export, TaskWarrior 2.0 needs the command line options `rc.json.array=on` and `rc.verbose=nothing`.
 
 ## Contributing
 
