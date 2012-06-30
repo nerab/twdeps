@@ -6,7 +6,7 @@ Visualizes dependencies between TaskWarrior tasks.
 
 ## Example Output
 
-![party](examples/party.png)
+![party](raw/master/examples/party.png)
 
 ## Installation
 
