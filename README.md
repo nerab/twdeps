@@ -39,7 +39,7 @@ Result:
 
 ## Dependencies
 
-The graph is generated with [ruby-graphwiz](https://github.com/glejeune/Ruby-Graphviz), which in turn requires a local [Graphviz](http://graphviz.org/) installation (e.g. `brew install graphviz`).
+The graph is generated with [ruby-graphviz](https://github.com/glejeune/Ruby-Graphviz), which in turn requires a local [Graphviz](http://graphviz.org/) installation (e.g. `brew install graphviz`).
 
 [bcat](http://rtomayko.github.com/bcat/) is required for piping into a browser.
 
