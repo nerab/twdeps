@@ -3,13 +3,33 @@
 require 'bundler'
 Bundler.require
 
+require 'trollop'
+
 def die(msg)
-  STDERR.puts "#{File.basename($0)} - #{msg}"
+  STDERR.puts "#{File.basename($0)}: #{msg}"
   exit 1
 end
 
-# require output file argument if $stdout.tty?, otherwise it's being piped
-#outfile = ARGV.shift || die('Missing argument for output file')
+opts = Trollop::options do
+  version "#{File.basename($0)} v#{TaskWarrior::Dependencies::VERSION} (c) 2012 Nicolas E. Rabenau"
+  banner <<-EOS
+Visualizes dependencies between TaskWarrior tasks.
+
+Usage:
+       #{File.basename($0)} [options]
+
+where [options] are:
+  
+EOS
+  opt :format, "Specify output format", :default => 'svg'
+end
 
 include TaskWarrior::Dependencies
-puts Scanner.new(nil, TaskResolver.new(ARGF.read)).render('svg')
+
+Trollop::die :format, "must be one of #{Scanner.formats.join(', ')}" unless Scanner.formats.include?(opts[:format])
+
+begin
+  puts Scanner.new(nil, TaskResolver.new(ARGF.read)).render(opts[:format])
+rescue
+  die($!)
+end

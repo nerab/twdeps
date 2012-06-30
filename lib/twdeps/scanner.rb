@@ -1,5 +1,6 @@
 module TaskWarrior
   module Dependencies
+    # Builds a dependency graph
     # 
     # +thing+ is added as node with all of its dependencies. 
     # +thing.to_s+ is called for the label.
@@ -11,6 +12,12 @@ module TaskWarrior
     # Design influenced by https://github.com/glejeune/Ruby-Graphviz/blob/852ee119e4e9850f682f0a0089285c36ee16280f/bin/gem2gv
     #
     class Scanner
+      class << self
+        def formats
+          Constants::FORMATS
+        end
+      end
+      
       def initialize(thing = nil, resolver)
         @graph = GraphViz::new(:G)
         @dependencies = []
@@ -18,8 +25,7 @@ module TaskWarrior
         resolve(thing)
       end
       
-      # TODO should be passed an IO object to write to
-      def render(format = 'dot')
+      def render(format)
         @graph.output(format => nil)
       end
     
