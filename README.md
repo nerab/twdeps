@@ -4,7 +4,15 @@ Visualizes dependencies between TaskWarrior tasks.
 
 [![Build Status](https://secure.travis-ci.org/nerab/twdeps.png?branch=master)](http://travis-ci.org/nerab/twdeps)
 
-## Example Output
+## Example
+
+Given a set of interdependent tasks described in the TaskWarrior [tutorial](http://taskwarrior.org/projects/taskwarrior/wiki/Tutorial2#DEPENDENCIES), the tasks are
+
+1. Exported from TaskWarrior as JSON, then
+1. Piped into `twdeps`, and finally
+1. The output is directed to a PNG file.
+
+Result:
 
 ![party](raw/master/examples/party.png)
 
