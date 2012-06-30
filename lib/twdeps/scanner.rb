@@ -23,11 +23,12 @@ module TaskWarrior
       #
       # +thing+ may be nil, and it depends on the behavior of the resolver what happens.
       #
-      def initialize(thing = nil, resolver)
+      def initialize(thing = nil, resolver = nil, presenter = Presenter)
         @graph = GraphViz::new(:G)
         @dependencies = []
         @edges = []
         @resolver = resolver
+        @presenter = presenter
         resolve(thing)
       end
       
@@ -63,7 +64,11 @@ module TaskWarrior
       end
       
       def find_or_create_node(thing)
-        @graph.get_node(thing.id) || @graph.add_nodes(thing.id, :label => thing.to_s)
+        @graph.get_node(thing.id) || create_node(thing)
+      end
+      
+      def create_node(thing)
+        @graph.add_nodes(thing.id, @presenter.new(thing).attributes)
       end
 
       def create_edge(nodeA, nodeB)

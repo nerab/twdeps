@@ -10,29 +10,29 @@ class TestTask < Test::Unit::TestCase
     @task.id = 1
     @task.uuid = '66465716-b08d-41ea-8567-91b988a2bcbf'
     @task.entry = DateTime.now
-    @task.status = :pending    
+    @task.status = :pending
   end
-  
+
   def test_task_id_nil
     @task.id = nil
     assert_invalid(@task)
   end
-  
+
   def test_task_id_0
     @task.id = 0
     assert_invalid(@task)
   end
-  
+
   def test_task_uuid_nil
     @task.uuid = nil
     assert_invalid(@task)
   end
-  
+
   def test_task_uuid_empty
     @task.uuid = ''
     assert_invalid(@task)
   end
-  
+
   def test_task_uuid_wrong_format
     @task.uuid = 'abcdefg'
     assert_invalid(@task)
@@ -77,33 +77,33 @@ class TestTask < Test::Unit::TestCase
     @task.status = :foobar
     assert_invalid(@task)
   end
-  
+
   def test_task_project_nil
     @task.project = nil
     assert_valid(@task)
   end
-  
+
   def test_task_project_empty
     @task.project = ''
     assert_valid(@task)
   end
-  
+
   def test_task_project_with_space
     @task.project = 'foo bar'
     assert_invalid(@task)
   end
-  
+
   def test_task_project_just_space
     @task.project = ' '
     # TODO This should actually pass ...
     # assert_invalid(@task)
   end
-  
+
   def test_task_project_something
     @task.project = 'foobar'
     assert_valid(@task)
   end
-  
+
   def test_task_valid
     assert_valid(@task)
   end
@@ -112,13 +112,13 @@ class TestTask < Test::Unit::TestCase
   def assert_valid(task)
     assert(@task.valid?, error_message(@task.errors))
   end
-  
+
   def assert_invalid(task)
     assert(task.invalid?, 'Expect validation to fail')
   end
-  
+
   def error_message(errors)
-    errors.each_with_object([]){|e, result| 
+    errors.each_with_object([]){|e, result|
       result << e.join(' ')
     }.join("\n")
   end

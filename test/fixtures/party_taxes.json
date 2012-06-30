@@ -1,0 +1,9 @@
+[{"id":1,"description":"Select a free weekend in November","entry":"20120629T191421Z","priority":"H","project":"party","status":"pending","uuid":"6fd0ba4a-ab67-49cd-ac69-64aa999aff8a","annotations":[{"entry":"20120629T191534Z","description":"the 13th looks good"}]},
+{"id":2,"depends":"6fd0ba4a-ab67-49cd-ac69-64aa999aff8a","description":"Select and book a venue","entry":"20120629T191634Z","priority":"H","project":"party","status":"pending","uuid":"c992448a-f1ea-4982-8461-47f0705ff509"},
+{"id":3,"depends":"9f6f3738-1c08-4f45-8eb4-1e90864c7588","description":"Mail invitations","entry":"20120629T191919Z","project":"party","status":"pending","uuid":"3b53178e-d5a4-45e0-afc2-1292db58a59a"},
+{"id":4,"depends":"6fd0ba4a-ab67-49cd-ac69-64aa999aff8a,c992448a-f1ea-4982-8461-47f0705ff509","description":"Select a caterer","entry":"20120629T191919Z","project":"party","status":"pending","uuid":"c590941b-eb10-4569-bdc9-0e339f79305e"},
+{"id":5,"depends":"c992448a-f1ea-4982-8461-47f0705ff509","description":"Design invitations","entry":"20120629T191919Z","priority":"H","project":"party","status":"pending","tags":["mall"],"uuid":"e5a867b7-0116-457d-ba43-9ac2bee6ad2a"},
+{"id":6,"depends":"e5a867b7-0116-457d-ba43-9ac2bee6ad2a","description":"Print invitations","entry":"20120629T191920Z","project":"party","status":"pending","tags":["mall"],"uuid":"9f6f3738-1c08-4f45-8eb4-1e90864c7588"},
+{"id":7,"description":"Pay taxes","due":"20130429T220000Z","entry":"20120630T092759Z","mask":"-","recur":"yearly","status":"recurring","uuid":"b587f364-c68e-4438-b4d6-f2af6ad62518"},
+{"id":8,"description":"Pay taxes","due":"20130429T220000Z","entry":"20120630T092800Z","imask":"0","parent":"b587f364-c68e-4438-b4d6-f2af6ad62518","recur":"yearly","status":"pending","uuid":"99c9e1bb-ed75-4525-b05d-cf153a7ee1a1"}
+]
