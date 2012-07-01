@@ -26,10 +26,10 @@ end
 
 include TaskWarrior::Dependencies
 
-Trollop::die :format, "must be one of #{Scanner.formats.join(', ')}" unless Scanner.formats.include?(opts[:format])
+Trollop::die :format, "must be one of #{Graph.formats.join(', ')}" unless Graph.formats.include?(opts[:format])
 
 begin
-  puts Scanner.new(nil, TaskResolver.new(ARGF.read)).render(opts[:format])
+  puts Graph.new(nil, TaskResolver.new(ARGF.read)).render(opts[:format])
 rescue
   die($!)
 end
