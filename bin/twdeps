@@ -5,8 +5,12 @@ Bundler.require
 
 require 'trollop'
 
-def die(msg)
+def log(msg)
   STDERR.puts "#{File.basename($0)}: #{msg}"
+end
+
+def die(msg = nil)
+  log(msg) unless msg.nil
   exit 1
 end
 
@@ -22,14 +26,21 @@ where [options] are:
   
 EOS
   opt :format, "Specify output format", :default => 'svg'
+  opt :trace,  "Enable trace output", :default => false
 end
 
+include TaskWarrior
 include TaskWarrior::Dependencies
 
 Trollop::die :format, "must be one of #{Graph.formats.join(', ')}" unless Graph.formats.include?(opts[:format])
 
 begin
-  puts Graph.new(nil, TaskResolver.new(ARGF.read)).render(opts[:format])
+  puts Graph.new(Repository.new(ARGF.read)).render(opts[:format])
 rescue
-  die($!)
+  if opts[:trace]
+    log($!)
+    $@.each{|line| log(line)}
+  else
+    die($!)
+  end
 end

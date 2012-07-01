@@ -1,14 +1,16 @@
 require 'test_helper'
 
 class DependencyTest < TaskWarrior::Test::Integration::TestCase
+  include TaskWarrior::Test::Fixtures
+  
   def test_no_dependencies
-    exec("import #{fixture('no_deps.json')}")
+    task("import #{fixture('no_deps.json')}")
     tasks = export_tasks
     assert_equal(6, tasks.size)
   end
   
   def test_full_dependencies
-    exec("import #{fixture('party.json')}")
+    task("import #{fixture('party.json')}")
     tasks = export_tasks
     assert_equal(6, tasks.size)
   end

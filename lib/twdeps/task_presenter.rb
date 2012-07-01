@@ -9,7 +9,7 @@ module TaskWarrior
       end
       
       def attributes
-        attrs = {:label => @task.to_s}
+        attrs = {:label => @task.description}
         attrs.merge!({:tooltip => "Status: #{@task.status}"})
         attrs.merge!({:fontcolor => 'gray', :color => 'gray'}) if :completed == @task.status
         attrs

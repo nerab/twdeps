@@ -19,6 +19,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'activemodel', '~> 3.2'
   gem.add_dependency 'trollop', '~> 1'
   gem.add_development_dependency 'activesupport', '~> 3.2'
-  gem.add_development_dependency 'twtest'
+  gem.add_development_dependency 'twtest', '~> 0.0.2'
   gem.add_development_dependency 'pry'
 end

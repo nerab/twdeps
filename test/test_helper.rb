@@ -6,11 +6,9 @@ require 'twdeps'
 
 module TaskWarrior
   module Test
-    module Integration
-      class TestCase
-        def fixture(name)
-          File.join(File.dirname(__FILE__), 'fixtures', name)
-        end
+    module Fixtures
+      def fixture(name)
+        File.join(File.dirname(__FILE__), 'fixtures', name)
       end
     end
   end

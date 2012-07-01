@@ -23,13 +23,13 @@ module TaskWarrior
       #
       # +thing+ may be nil, and it depends on the behavior of the resolver what happens.
       #
-      def initialize(thing = nil, resolver = nil, presenter = TaskPresenter)
+      def initialize(respository, presenter = TaskPresenter)
         @graphviz = GraphViz::new(:G)
         @dependencies = []
         @edges = []
-        @resolver = resolver
+        @resolver = respository
         @presenter = presenter
-        resolve(thing)
+        resolve
       end
       
       def render(format)
@@ -39,13 +39,12 @@ module TaskWarrior
     private
       def resolve(thing = nil)
         if thing.nil?
-          @resolver.dependencies.each{|t| resolve(t)}
+          @resolver.tasks.each{|t| resolve(t)}
         else
-          dependencies = @resolver.dependencies(thing)
-          create_edges(thing, dependencies)
+          create_edges(thing, thing.dependencies)
         
           # resolve all dependencies we don't know yet
-          dependencies.each do |dependency|
+          thing.dependencies.each do |dependency|
             unless @dependencies.include?(dependency)
               @dependencies << dependency
               resolve(dependency)
@@ -64,16 +63,16 @@ module TaskWarrior
       end
       
       def find_or_create_node(thing)
-        @graphviz.get_node(thing.id) || create_node(thing)
+        @graphviz.get_node(thing.id.to_s) || create_node(thing)
       end
       
       def create_node(thing)
-        @graphviz.add_nodes(thing.id, @presenter.new(thing).attributes)
+        @graphviz.add_nodes(thing.id.to_s, @presenter.new(thing).attributes)
       end
 
       def create_edge(nodeA, nodeB)
         edge = [nodeA, nodeB]
-        unless @edges.include?(edge)
+        unless @edges.include?(edge) # GraphViz lacks get_edge, so we need to track existing edges ourselfes
           @edges << edge
           @graphviz.add_edges(nodeA, nodeB)
         end
