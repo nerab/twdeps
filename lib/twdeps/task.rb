@@ -2,7 +2,7 @@ require 'active_model'
 
 module TaskWarrior
   class Task
-    attr_accessor :description, :id, :entry, :status, :uuid, :project, :dependencies
+    attr_accessor :description, :id, :entry, :status, :uuid, :project, :dependencies, :parent, :children
     
     include ActiveModel::Validations
     validates :description, :id, :entry, :status, :uuid, :presence => true
@@ -15,6 +15,7 @@ module TaskWarrior
     def initialize(description)
       @description = description
       @dependencies = []
+      @children = []
     end
     
     private

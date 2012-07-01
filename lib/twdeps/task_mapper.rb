@@ -16,9 +16,11 @@ module TaskWarrior
             if json['depends'].respond_to?(:split)
               t.dependencies = json['depends'].split(',') 
             else
-              t.dependencies = json['depends'] 
+              t.dependencies = json['depends']
             end
           end
+
+          t.parent = json['parent'] # Children will be cross-indexed in the repository
         }
       end
     end
