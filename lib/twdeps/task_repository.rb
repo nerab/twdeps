@@ -1,9 +1,6 @@
 require 'json'
 
 module TaskWarrior
-  #
-  # Holds tasks
-  #
   class Repository
     def initialize(input)
       @tasks = {}
@@ -28,7 +25,7 @@ module TaskWarrior
       @tasks.each_value do |task|
         if task.parent
           parent = @tasks[task.parent]
-          parent.children << task
+          parent.children << task if parent
           task.parent = parent
         end
       end

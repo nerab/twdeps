@@ -14,6 +14,10 @@ module TaskWarrior
         attrs.merge!({:fontcolor => 'gray', :color => 'gray'}) if :completed == @task.status
         attrs
       end
+      
+      def id
+        @task.uuid
+      end
     end
   end
 end

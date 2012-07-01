@@ -1,10 +1,20 @@
 module TaskWarrior
   module Dependencies
+    class NullPresenter
+      def attributes
+        {:label => 'Unknown', :fontcolor => 'gray'}
+      end
+      
+      def id
+        'null'
+      end
+    end
+    
     # Builds a dependency graph
     # 
     # +thing+ is added as node with all of its dependencies. 
-    # +thing.to_s+ is called for the label.
-    # +thing.id+ is called for the identifier. It must be unique within thing and all of its dependencies.
+    # The presenter is used to present the task as node label.
+    # +thing.id.to_s+ is called for the identifier. It must be unique within the graph and all of its dependencies.
     #
     # +resolver.dependencies(thing)+ is called to resolve dependencies of +thing+. If must return a list
     # of things. Each thing may have its own dependencies which will be resolved recursively.
@@ -63,11 +73,11 @@ module TaskWarrior
       end
       
       def find_or_create_node(thing)
-        @graphviz.get_node(thing.id.to_s) || create_node(thing)
+        @graphviz.get_node(presenter(thing).id) || create_node(thing)
       end
       
       def create_node(thing)
-        @graphviz.add_nodes(thing.id.to_s, @presenter.new(thing).attributes)
+        @graphviz.add_nodes(presenter(thing).id, presenter(thing).attributes)
       end
 
       def create_edge(nodeA, nodeB)
@@ -75,6 +85,14 @@ module TaskWarrior
         unless @edges.include?(edge) # GraphViz lacks get_edge, so we need to track existing edges ourselfes
           @edges << edge
           @graphviz.add_edges(nodeA, nodeB)
+        end
+      end
+      
+      def presenter(thing)
+        if thing
+          @presenter.new(thing)
+        else
+          NullPresenter.new
         end
       end
     end
