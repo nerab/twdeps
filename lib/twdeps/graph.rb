@@ -2,7 +2,7 @@ module TaskWarrior
   module Dependencies
     class NullPresenter
       def attributes
-        {:label => 'Unknown', :fontcolor => 'gray'}
+        {:label => 'Unknown', :fontcolor => 'red'}
       end
       
       def id
@@ -43,7 +43,7 @@ module TaskWarrior
       end
       
       def render(format)
-        @graphviz.output(format => nil)
+        @graphviz.output(format => String)
       end
     
     private

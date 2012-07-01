@@ -10,7 +10,7 @@ def log(msg)
 end
 
 def die(msg = nil)
-  log(msg) unless msg.nil
+  log(msg) unless msg.nil?
   exit 1
 end
 

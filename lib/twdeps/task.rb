@@ -29,6 +29,10 @@ module TaskWarrior
       @children = []
     end
     
+    def to_s
+      "#{description} <#{uuid}>"
+    end
+    
     private
     def entry_cannot_be_in_the_future
       begin

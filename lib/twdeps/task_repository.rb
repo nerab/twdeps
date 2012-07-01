@@ -25,8 +25,11 @@ module TaskWarrior
       @tasks.each_value do |task|
         if task.parent
           parent = @tasks[task.parent]
-          parent.children << task if parent
-          task.parent = parent
+          
+          if parent # we know the parent
+            parent.children << task 
+            task.parent = parent
+          end
         end
       end
     end
