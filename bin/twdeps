@@ -35,7 +35,20 @@ include TaskWarrior::Dependencies
 Trollop::die :format, "must be one of #{Graph.formats.join(', ')}" unless Graph.formats.include?(opts[:format])
 
 begin
-  puts Graph.new(Repository.new(ARGF.read)).render(opts[:format])
+  repo = Repository.new(ARGF.read)
+  master = Graph.new
+  
+  # Add all projects (will add their tasks and dependencies recursively)
+  repo.projects.each do |project|
+    master << project
+  end
+  
+  # Add all project-less tasks as toplevel nodes
+  repo.tasks.reject{|t| t.project}.each do |task|
+    master << task
+  end
+  
+  puts master.render(opts[:format])
 rescue
   if opts[:trace]
     log($!)

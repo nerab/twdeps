@@ -33,39 +33,42 @@ module TaskWarrior
       #
       # +thing+ may be nil, and it depends on the behavior of the resolver what happens.
       #
-      def initialize(respository, presenter = TaskPresenter)
-        @graphviz = GraphViz::new(:G)
+      def initialize(name = :G, presenter = TaskPresenter)
+        @graph = GraphViz::new(name)
         @dependencies = []
         @edges = []
-        @resolver = respository
         @presenter = presenter
-        resolve
       end
       
-      def render(format)
-        @graphviz.output(format => String)
-      end
+      def <<(thing)
+        if thing.respond_to?(:dependencies)
+          nodeA = find_or_create_node(thing)
+          create_edges(nodeA, thing.dependencies)
     
-    private
-      def resolve(thing = nil)
-        if thing.nil?
-          @resolver.tasks.each{|t| resolve(t)}
-        else
-          create_edges(thing, thing.dependencies)
-        
           # resolve all dependencies we don't know yet
           thing.dependencies.each do |dependency|
             unless @dependencies.include?(dependency)
               @dependencies << dependency
-              resolve(dependency)
+              self << dependency
             end
           end
+        else
+          cluster = Graph.new("cluster_#{thing.name}")
+
+          thing.tasks.each do |task|
+            cluster << task
+          end
+          
+          @graph.add_graph(cluster.graph)
         end
       end
-  
-      def create_edges(thing, nodes)
-        nodeA = find_or_create_node(thing)
+      
+      def render(format)
+        @graph.output(format => String)
+      end
     
+    private
+      def create_edges(nodeA, nodes)
         nodes.each do |node|
           nodeB = find_or_create_node(node)
           create_edge(nodeA, nodeB)
@@ -73,22 +76,23 @@ module TaskWarrior
       end
       
       def find_or_create_node(thing)
-        @graphviz.get_node(presenter(thing).id) || create_node(thing)
+        @graph.get_node(presenter(thing).id) || create_node(thing)
       end
       
       def create_node(thing)
-        @graphviz.add_nodes(presenter(thing).id, presenter(thing).attributes)
+        @graph.add_nodes(presenter(thing).id, presenter(thing).attributes)
       end
 
       def create_edge(nodeA, nodeB)
         edge = [nodeA, nodeB]
         unless @edges.include?(edge) # GraphViz lacks get_edge, so we need to track existing edges ourselfes
           @edges << edge
-          @graphviz.add_edges(nodeA, nodeB)
+          @graph.add_edges(nodeA, nodeB)
         end
       end
       
       def presenter(thing)
+        # TODO Will counter-caching the presenters improve performance?
         if thing
           @presenter.new(thing)
         else

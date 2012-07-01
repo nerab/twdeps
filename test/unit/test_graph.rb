@@ -7,8 +7,14 @@ module TaskWarrior
   
       def setup
         repo = TaskWarrior::Repository.new(File.read(fixture('party_taxes.json')))
-        plain = TaskWarrior::Dependencies::Graph.new(repo).render('plain')
-        @graph = TaskWarrior::Test::PlainGraphParser.new(plain)
+
+        plain = TaskWarrior::Dependencies::Graph.new
+
+        repo.tasks.each do |task|
+          plain << task
+        end
+
+        @graph = TaskWarrior::Test::PlainGraphParser.new(plain.render(:plain))
       end
   
       def test_nodes
