@@ -104,6 +104,41 @@ class TestTask < Test::Unit::TestCase
     assert_valid(@task)
   end
 
+  def test_task_priority_nil
+    @task.priority = nil
+    assert_valid(@task)
+  end
+
+  def test_task_priority_empty
+    @task.priority = ''
+    assert_valid(@task)
+  end
+
+  def test_task_priority_unknown_string
+    @task.priority = "foobar"
+    assert_invalid(@task)
+  end
+
+  def test_task_priority_unknown_symbol
+    @task.priority = :foobar
+    assert_invalid(@task)
+  end
+
+  def test_task_priority_high
+    @task.priority = :high
+    assert_valid(@task)
+  end
+
+  def test_task_priority_medium
+    @task.priority = :medium
+    assert_valid(@task)
+  end
+
+  def test_task_priority_low
+    @task.priority = :low
+    assert_valid(@task)
+  end
+
   def test_task_valid
     assert_valid(@task)
   end

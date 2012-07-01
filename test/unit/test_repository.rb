@@ -12,7 +12,7 @@ class TestRepository < Test::Unit::TestCase
     
     one = @repo['6fd0ba4a-ab67-49cd-ac69-64aa999aff8a']
     assert_equal('Select a free weekend in November', one.description)
-#    assert_equal('H', one.priority)
+    assert_equal(:high, one.priority)
     assert_equal('party', one.project)
     assert_equal(:pending, one.status)
 

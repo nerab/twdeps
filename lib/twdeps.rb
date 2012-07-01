@@ -3,6 +3,7 @@ require "twdeps/graph"
 require "twdeps/task"
 require "twdeps/task_repository"
 require "twdeps/task_mapper"
+require "twdeps/priority_mapper"
 require "twdeps/task_presenter"
 
 require "graphviz"

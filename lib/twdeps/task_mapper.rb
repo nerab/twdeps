@@ -21,6 +21,7 @@ module TaskWarrior
           end
 
           t.parent = json['parent'] # Children will be cross-indexed in the repository
+          t.priority = PriorityMapper.map(json['priority'])
         }
       end
     end
