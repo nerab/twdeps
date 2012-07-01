@@ -5,6 +5,8 @@ require 'active_support/core_ext'
 # TODO Add tests for dependencies
 
 class TestTask < Test::Unit::TestCase
+  include TaskWarrior::Test::Validations
+  
   def setup
     @task = TaskWarrior::Task.new('foobar')
     @task.id = 1
@@ -78,32 +80,6 @@ class TestTask < Test::Unit::TestCase
     assert_invalid(@task)
   end
 
-  def test_task_project_nil
-    @task.project = nil
-    assert_valid(@task)
-  end
-
-  def test_task_project_empty
-    @task.project = ''
-    assert_valid(@task)
-  end
-
-  def test_task_project_with_space
-    @task.project = 'foo bar'
-    assert_invalid(@task)
-  end
-
-  def test_task_project_just_space
-    @task.project = ' '
-    # TODO This should actually pass ...
-    # assert_invalid(@task)
-  end
-
-  def test_task_project_something
-    @task.project = 'foobar'
-    assert_valid(@task)
-  end
-
   def test_task_priority_nil
     @task.priority = nil
     assert_valid(@task)
@@ -141,20 +117,5 @@ class TestTask < Test::Unit::TestCase
 
   def test_task_valid
     assert_valid(@task)
-  end
-
-  private
-  def assert_valid(task)
-    assert(@task.valid?, error_message(@task.errors))
-  end
-
-  def assert_invalid(task)
-    assert(task.invalid?, 'Expect validation to fail')
-  end
-
-  def error_message(errors)
-    errors.each_with_object([]){|e, result|
-      result << e.join(' ')
-    }.join("\n")
   end
 end

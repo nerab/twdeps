@@ -1,6 +1,7 @@
 require "twdeps/version"
 require "twdeps/graph"
 require "twdeps/task"
+require "twdeps/project"
 require "twdeps/task_repository"
 require "twdeps/task_mapper"
 require "twdeps/priority_mapper"

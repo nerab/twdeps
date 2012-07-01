@@ -21,7 +21,7 @@ module TaskWarrior
       :message => "%{value} is not a valid priority"
     }
     
-    validate :entry_cannot_be_in_the_future, :project_may_not_contain_spaces
+    validate :entry_cannot_be_in_the_future
 
     def initialize(description)
       @description = description
@@ -41,12 +41,6 @@ module TaskWarrior
         end
       rescue
         errors.add(:entry, "must be comparable to DateTime")
-      end
-    end
-    
-    def project_may_not_contain_spaces
-      if !project.blank? and project[/\s/]
-        errors.add(:project, "may not contain spaces")
       end
     end
   end

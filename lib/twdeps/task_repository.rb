@@ -4,21 +4,22 @@ module TaskWarrior
   class Repository
     def initialize(input)
       @tasks = {}
-      @projects = Hash.new{|hash, key| hash[key] = Array.new}
+      @projects = Hash.new{|hash, key| hash[key] = Project.new(key)}
       @tags = Hash.new{|hash, key| hash[key] = Array.new}
 
       JSON.parse(input).each{|json|
         task = TaskWarrior::TaskMapper.map(json)
         @tasks[task.uuid] = task
-        @projects[task.project] << task if task.project
+        @projects[task.project].tasks << task if task.project
 #        task.tags.each{|tag| @tags[tag] << task}
       }
 
       # Replace the uuid of each dependency with the real task
       @tasks.each_value{|task| task.dependencies.map!{|uuid| @tasks[uuid]}}
 
-      # Replace the project of each task with a Project object and add the task to it
-
+      # Replace the project property of each task with a proper Project object carrying a name and all of the project's tasks
+      @tasks.each_value{|task| task.project = @projects[task.project] if task.project}
+      
       # Replace the tag of each task with a Tag object and add the task to it
 
       # Add child tasks to their parent, but keep them in the global index
@@ -45,7 +46,11 @@ module TaskWarrior
     end
 
     def projects
-      @projects.keys
+      @projects.values
+    end
+    
+    def project(name)
+      @projects[name] if @projects.has_key?(name)
     end
 
 #    def tags

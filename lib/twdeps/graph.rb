@@ -53,12 +53,15 @@ module TaskWarrior
             end
           end
         else
+          # it's a project
           cluster = Graph.new("cluster_#{thing.name}")
-
+          
           thing.tasks.each do |task|
             cluster << task
           end
           
+          # add all nodes and edges from cluster as a subgraph to @graph
+          # https://github.com/glejeune/Ruby-Graphviz/issues/48
           @graph.add_graph(cluster.graph)
         end
       end
@@ -67,6 +70,9 @@ module TaskWarrior
         @graph.output(format => String)
       end
     
+    protected
+      attr_reader :graph
+      
     private
       def create_edges(nodeA, nodes)
         nodes.each do |node|

@@ -13,7 +13,7 @@ class TestRepository < Test::Unit::TestCase
     one = @repo['6fd0ba4a-ab67-49cd-ac69-64aa999aff8a']
     assert_equal('Select a free weekend in November', one.description)
     assert_equal(:high, one.priority)
-    assert_equal('party', one.project)
+    assert_equal('party', one.project.name)
     assert_equal(:pending, one.status)
 
 #    assert_equal(1, one.annotations.size)    
@@ -27,5 +27,11 @@ class TestRepository < Test::Unit::TestCase
   
   def test_parent
     assert_equal(@repo['b587f364-c68e-4438-b4d6-f2af6ad62518'], @repo['99c9e1bb-ed75-4525-b05d-cf153a7ee1a1'].parent) 
+  end
+  
+  def test_projects
+    party = @repo.project('party')
+    assert_not_nil(party)
+    assert_equal(6, party.tasks.size)
   end
 end
