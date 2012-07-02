@@ -23,6 +23,10 @@ module TaskWarrior
       "Tag: #{name} (#{@tasks.size} tasks)"
     end
 
+    def ==(other)
+      name == other.name && tasks == other.tasks
+    end
+
     private
     def name_may_not_contain_spaces
       if !name.blank? and name[/\s/]

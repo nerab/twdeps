@@ -1,43 +1,51 @@
 require 'test_helper'
 
 class TestTag < Test::Unit::TestCase
+  include TaskWarrior
   include TaskWarrior::Test::Validations
 
   def test_name
-    tag = TaskWarrior::Tag.new('foo')
+    tag = Tag.new('foo')
     assert_valid(tag)
     assert_empty(tag.tasks)
   end
 
   def test_empty_tasks
-    tag = TaskWarrior::Tag.new('foo', [])
+    tag = Tag.new('foo', [])
     assert_valid(tag)
     assert_empty(tag.tasks)
   end
 
   def test_with_tasks
-    tag = TaskWarrior::Tag.new('foo', [TaskWarrior::Task.new('foobar')])
+    tag = Tag.new('foo', [Task.new('foobar')])
     assert_valid(tag)
     assert_equal(1, tag.tasks.size)
   end
 
   def test_name_nil
-    tag = TaskWarrior::Tag.new(nil)
+    tag = Tag.new(nil)
     assert_invalid(tag)
   end
 
   def test_name_empty
-    tag = TaskWarrior::Tag.new('')
+    tag = Tag.new('')
     assert_invalid(tag)
   end
 
   def test_name_with_space
-    tag = TaskWarrior::Tag.new('foo bar')
+    tag = Tag.new('foo bar')
     assert_invalid(tag)
   end
 
   def test_name_just_space
-    tag = TaskWarrior::Tag.new(' ')
+    tag = Tag.new(' ')
     assert_invalid(tag)
+  end
+
+  def test_value_object
+    f1 = Tag.new('foo')
+    f2 = Tag.new('foo')
+    assert_not_equal(f1.object_id, f2.object_id)
+    assert_equal(f1, f2)
   end
 end

@@ -11,10 +11,10 @@ module TaskWarrior
           t.entry = DateTime.parse(json['entry'])
           t.status = json['status'].to_sym
           t.project = json['project']
-          
+
           if json['depends']
             if json['depends'].respond_to?(:split)
-              t.dependencies = json['depends'].split(',') 
+              t.dependencies = json['depends'].split(',')
             else
               t.dependencies = json['depends']
             end
@@ -22,6 +22,7 @@ module TaskWarrior
 
           t.parent = json['parent'] # Children will be cross-indexed in the repository
           t.priority = PriorityMapper.map(json['priority'])
+          json['tags'].each{|tag| t.tags << tag} if json['tags']
         }
       end
     end

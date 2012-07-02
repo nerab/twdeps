@@ -4,15 +4,15 @@ module TaskWarrior
       def attributes
         {:label => 'Unknown', :fontcolor => 'red'}
       end
-      
+
       def id
         'null'
       end
     end
-    
+
     # Builds a dependency graph
-    # 
-    # +thing+ is added as node with all of its dependencies. 
+    #
+    # +thing+ is added as node with all of its dependencies.
     # The presenter is used to present the task as node label.
     # +thing.id.to_s+ is called for the identifier. It must be unique within the graph and all of its dependencies.
     #
@@ -27,7 +27,7 @@ module TaskWarrior
           Constants::FORMATS
         end
       end
-      
+
       #
       # Build a new Graph for +thing+, using +resolver+ to find thing's dependencies.
       #
@@ -39,12 +39,12 @@ module TaskWarrior
         @edges = []
         @presenter = presenter
       end
-      
+
       def <<(thing)
         if thing.respond_to?(:dependencies)
           nodeA = find_or_create_node(thing)
           create_edges(nodeA, thing.dependencies)
-    
+
           # resolve all dependencies we don't know yet
           thing.dependencies.each do |dependency|
             unless @dependencies.include?(dependency)
@@ -55,24 +55,24 @@ module TaskWarrior
         else
           # it's a project
           cluster = Graph.new("cluster_#{thing.name}")
-          
+
           thing.tasks.each do |task|
             cluster << task
           end
-          
+
           # add all nodes and edges from cluster as a subgraph to @graph
           # https://github.com/glejeune/Ruby-Graphviz/issues/48
-          @graph.add_graph(cluster.graph)
+          # @graph.add_graph(cluster.graph)
         end
       end
-      
+
       def render(format)
         @graph.output(format => String)
       end
-    
+
     protected
       attr_reader :graph
-      
+
     private
       def create_edges(nodeA, nodes)
         nodes.each do |node|
@@ -80,11 +80,11 @@ module TaskWarrior
           create_edge(nodeA, nodeB)
         end
       end
-      
+
       def find_or_create_node(thing)
         @graph.get_node(presenter(thing).id) || create_node(thing)
       end
-      
+
       def create_node(thing)
         @graph.add_nodes(presenter(thing).id, presenter(thing).attributes)
       end
@@ -96,7 +96,7 @@ module TaskWarrior
           @graph.add_edges(nodeA, nodeB)
         end
       end
-      
+
       def presenter(thing)
         # TODO Will counter-caching the presenters improve performance?
         if thing
