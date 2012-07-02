@@ -27,15 +27,15 @@ module TaskWarrior
       @description = description
       @dependencies = []
       @children = []
-      @tags = Hash.new{|hash, key| hash[key] = Tag.new(key)}
+      @tags = []
     end
 
     def tags
-      @tags.values
+      @tags
     end
 
     def to_s
-      "#{description} <#{uuid}>"
+      "Task: #{description} <#{uuid}>"
     end
 
     private

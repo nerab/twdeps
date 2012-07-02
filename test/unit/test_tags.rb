@@ -40,12 +40,4 @@ class TestTag < Test::Unit::TestCase
     tag = TaskWarrior::Tag.new(' ')
     assert_invalid(tag)
   end
-
-  def test_habtm
-    foo_task = TaskWarrior::Task.new('Lookup foo in Wikipedia')
-
-    foo_tag = TaskWarrior::Tag.new('foo')
-    foo_tag << foo_task
-
-  end
 end

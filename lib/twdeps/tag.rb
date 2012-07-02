@@ -10,7 +10,7 @@ module TaskWarrior
 
     def initialize(name, tasks = [])
       @name = name
-      @tasks = tasks
+      @tasks = Array.new(tasks)
       @tasks.each{|t| t.tags << self}
     end
 
@@ -20,7 +20,7 @@ module TaskWarrior
     end
 
     def to_s
-      "Tag #{name} (#{@tasks} tasks)"
+      "Tag: #{name} (#{@tasks.size} tasks)"
     end
 
     private
