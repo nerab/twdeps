@@ -5,13 +5,17 @@ module TaskWarrior
     def initialize(input)
       @tasks = {}
       @projects = Hash.new{|hash, key| hash[key] = Project.new(key)}
-      @tags = Hash.new{|hash, key| hash[key] = Array.new}
+      @tags = Hash.new{|hash, key| hash[key] = Tag.new(key)}
 
       JSON.parse(input).each{|json|
         task = TaskWarrior::TaskMapper.map(json)
         @tasks[task.uuid] = task
         @projects[task.project].tasks << task if task.project
-        task.tags.each{|tag| @tags[tag] << task}
+        
+        # we need to replace the string instead of just adding te
+        task.tags.map!{|name|
+          @tags[name] << task
+        }
       }
 
       # Replace the uuid of each dependency with the real task
@@ -19,11 +23,9 @@ module TaskWarrior
 
       # Replace the project property of each task with a proper Project object carrying a name and all of the project's tasks
       @tasks.each_value{|task| task.project = @projects[task.project] if task.project}
-
+      
+      # Done in Tag#<<(task)
       # Replace all tag names in each task with the proper Tag object
-      @tags.each{|name, tasks|
-        @tags[name] = Tag.new(name, tasks)
-      }
 
       # Add child tasks to their parent, but keep them in the global index
       @tasks.each_value do |task|
@@ -57,7 +59,7 @@ module TaskWarrior
     end
 
     def tags
-      @tags.keys # TODO Hand out a list of proper Tag objects instead of just names
+      @tags.values
     end
 
     def tag(name)

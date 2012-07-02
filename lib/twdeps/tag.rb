@@ -10,13 +10,15 @@ module TaskWarrior
 
     def initialize(name, tasks = [])
       @name = name
-      @tasks = Array.new(tasks)
-      @tasks.each{|t| t.tags << self}
+      @tasks = []
+      
+      @tasks.each{|task| 
+        self << task
+      }
     end
 
     def <<(task)
       @tasks << task
-      task.tags << self
     end
 
     def to_s
@@ -24,7 +26,7 @@ module TaskWarrior
     end
 
     def ==(other)
-      name == other.name && tasks == other.tasks
+      name == other.name
     end
 
     private

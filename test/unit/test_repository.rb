@@ -46,7 +46,7 @@ class TestRepository < Test::Unit::TestCase
     tags = @repo.tags
     assert_not_nil(tags)
     assert_equal(2, tags.size)
-    assert(tags.include?(Tag.new('finance'))) # requires Tag to be a value object
+    assert(tags.include?(Tag.new('finance')))
     assert(tags.include?(Tag.new('mall')))
   end
 

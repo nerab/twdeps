@@ -33,7 +33,7 @@ module TaskWarrior
     def tags
       @tags
     end
-
+    
     def to_s
       "Task: #{description} <#{uuid}>"
     end
