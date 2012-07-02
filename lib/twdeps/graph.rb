@@ -12,12 +12,11 @@ module TaskWarrior
 
     # Builds a dependency graph
     #
-    # +thing+ is added as node with all of its dependencies.
-    # The presenter is used to present the task as node label.
+    # +thing+ is added as node with all of its dependencies. A presenter is used to present the task as node label.
     # +thing.id.to_s+ is called for the identifier. It must be unique within the graph and all of its dependencies.
     #
-    # +resolver.dependencies(thing)+ is called to resolve dependencies of +thing+. If must return a list
-    # of things. Each thing may have its own dependencies which will be resolved recursively.
+    # +thing.dependencies(thing)+ is called if +thing+ responds to it. It is expected to return a list
+    # of things the thing depends on. Each thing may have its own dependencies which will be resolved recursively.
     #
     # Design influenced by https://github.com/glejeune/Ruby-Graphviz/blob/852ee119e4e9850f682f0a0089285c36ee16280f/bin/gem2gv
     #
@@ -29,24 +28,22 @@ module TaskWarrior
       end
 
       #
-      # Build a new Graph for +thing+, using +resolver+ to find thing's dependencies.
+      # Build a new Graph for +thing+
       #
-      # +thing+ may be nil, and it depends on the behavior of the resolver what happens.
-      #
-      def initialize(name = :G, presenter = TaskPresenter)
-        @graph = GraphViz::new(name)
+      def initialize(name = :G, attributes = [])
+        @graph = GraphViz::new(name, attributes)
         @dependencies = []
         @edges = []
-        @presenter = presenter
       end
 
-      def <<(thing)
-        if thing.respond_to?(:dependencies)
-          nodeA = find_or_create_node(thing)
-          create_edges(nodeA, thing.dependencies)
+      def <<(task_or_project)
+        if task_or_project.respond_to?(:dependencies)
+          task = task_or_project
+          nodeA = find_or_create_node(task)
+          create_edges(nodeA, task.dependencies)
 
           # resolve all dependencies we don't know yet
-          thing.dependencies.each do |dependency|
+          task.dependencies.each do |dependency|
             unless @dependencies.include?(dependency)
               @dependencies << dependency
               self << dependency
@@ -54,15 +51,15 @@ module TaskWarrior
           end
         else
           # it's a project
-          cluster = Graph.new("cluster_#{thing.name}")
+          project = task_or_project
+          cluster = Graph.new(presenter(project).id, presenter(project).attributes)
 
-          thing.tasks.each do |task|
+          project.tasks.each do |task|
             cluster << task
           end
 
           # add all nodes and edges from cluster as a subgraph to @graph
-          # https://github.com/glejeune/Ruby-Graphviz/issues/48
-          # @graph.add_graph(cluster.graph)
+          @graph.add_graph(cluster.graph)
         end
       end
 
@@ -99,10 +96,14 @@ module TaskWarrior
 
       def presenter(thing)
         # TODO Will counter-caching the presenters improve performance?
-        if thing
-          @presenter.new(thing)
-        else
+        if thing.nil?
           NullPresenter.new
+        else
+          if thing.respond_to?(:dependencies)
+            TaskPresenter.new(thing)
+          else
+            ProjectPresenter.new(thing)
+          end
         end
       end
     end
