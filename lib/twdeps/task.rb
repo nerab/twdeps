@@ -33,9 +33,9 @@ module TaskWarrior
     def tags
       @tags
     end
-    
+
     def to_s
-      "Task: #{description} <#{uuid}>"
+      "Task '#{description}'".tap{|result| result << " <#{uuid}>" if uuid}
     end
 
     private

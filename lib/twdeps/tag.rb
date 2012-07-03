@@ -11,14 +11,15 @@ module TaskWarrior
     def initialize(name, tasks = [])
       @name = name
       @tasks = []
-      
-      @tasks.each{|task| 
+
+      tasks.each{|task|
         self << task
       }
     end
 
     def <<(task)
       @tasks << task
+      task.tags << self
     end
 
     def to_s
