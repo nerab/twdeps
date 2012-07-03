@@ -24,7 +24,6 @@ module TaskWarrior
 
     def <<(task)
       @tasks << task unless @tasks.include?(task)
-#      task.tags << self unless task.tags.include?(self)
     end
 
     def tasks

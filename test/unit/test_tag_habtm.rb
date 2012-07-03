@@ -8,11 +8,18 @@ class TestTagHasAndBelongsToMany < Test::Unit::TestCase
     @lookup_deadbeef = TaskWarrior::Task.new('Lookup deadbeef in Wikipedia')
 
     @foo = TaskWarrior::Tag.new('foo')
-    @deadbeef = TaskWarrior::Tag.new('foo')
+    @deadbeef = TaskWarrior::Tag.new('deadbeef')
     @metasyntactic = TaskWarrior::Tag.new('metasyntactic')
 
+    # We need to do what the repo does - cross-reference manually.
     @foo << @lookup_foo
+    @lookup_foo.tags << @foo
+    @lookup_foo.tags << @metasyntactic
+    
     @deadbeef << @lookup_deadbeef
+    @lookup_deadbeef.tags << @deadbeef
+    @lookup_deadbeef.tags << @metasyntactic
+    
     @metasyntactic << @lookup_foo
     @metasyntactic << @lookup_deadbeef
   end

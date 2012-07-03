@@ -26,7 +26,8 @@ module TaskWarrior
         @projects[task.project].tasks << task if task.project
 
         # Create a new Tag object in @tags that is the value for each tag name
-        task.tags.each{|tag_name| @tags[tag_name] << task}}
+        task.tags.each{|tag_name| @tags[tag_name] << task}
+      }
 
       # Replace the uuid of each dependency with the real task
       @tasks.each_value{|task| task.dependencies.map!{|uuid| @tasks[uuid]}}
