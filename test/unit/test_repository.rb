@@ -8,6 +8,12 @@ class TestRepository < Test::Unit::TestCase
     @repo = Repository.new(File.read(fixture('party_taxes.json')))
   end
 
+  def test_tags_of_task
+    atm = @repo['67aafe0b-ddd7-482b-9cfa-ac42c43e7559']
+    assert_not_nil(atm)
+    assert_equal(2, atm.tags.size)
+  end
+
   def test_all
     assert_equal(8, @repo.tasks.size)
 
@@ -34,12 +40,6 @@ class TestRepository < Test::Unit::TestCase
     party = @repo.project('party')
     assert_not_nil(party)
     assert_equal(6, party.tasks.size)
-  end
-
-  def test_tags_of_task
-    atm = @repo['67aafe0b-ddd7-482b-9cfa-ac42c43e7559']
-    assert_not_nil(atm)
-    assert_equal(2, atm.tags.size)
   end
 
   def test_tags

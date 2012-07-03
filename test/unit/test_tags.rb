@@ -1,51 +1,49 @@
 require 'test_helper'
 
-class TestTag < Test::Unit::TestCase
+class TestTags < Test::Unit::TestCase
   include TaskWarrior
   include TaskWarrior::Test::Validations
-
-  def test_name
-    tag = Tag.new('foo')
-    assert_valid(tag)
-    assert_empty(tag.tasks)
+=begin
+  def setup
+    @tags = Tags.new
   end
 
-  def test_empty_tasks
-    tag = Tag.new('foo', [])
-    assert_valid(tag)
-    assert_empty(tag.tasks)
+  def test_initial_size
+    assert_equal(0, @tags.size)
   end
 
-  def test_with_tasks
-    tag = Tag.new('foo', [Task.new('foobar')])
-    assert_valid(tag)
-    assert_equal(1, tag.tasks.size)
+  def test_name_string
+    foo = 'foo'
+    @tags << foo
+    assert_equal(1, @tags.size)
+    assert_equal(foo, @tags[foo].name)
+
+    # make sure we can access it by Tag, too
+    assert_equal(foo, @tags[Tag.new(foo)].name)
   end
 
   def test_name_nil
-    tag = Tag.new(nil)
-    assert_invalid(tag)
+    assert_raise(ValidationError){
+      @tags << nil
+    }
   end
 
   def test_name_empty
-    tag = Tag.new('')
-    assert_invalid(tag)
+    assert_raise(ValidationError){
+      @tags << ''
+    }
   end
 
   def test_name_with_space
-    tag = Tag.new('foo bar')
-    assert_invalid(tag)
+    assert_raise(ValidationError){
+      @tags << 'foo bar'
+    }
   end
 
   def test_name_just_space
-    tag = Tag.new(' ')
-    assert_invalid(tag)
+    assert_raise(ValidationError){
+      @tags << ' '
+    }
   end
-
-  def test_value_object
-    f1 = Tag.new('foo')
-    f2 = Tag.new('foo')
-    assert_not_equal(f1.object_id, f2.object_id)
-    assert_equal(f1, f2)
-  end
+=end
 end

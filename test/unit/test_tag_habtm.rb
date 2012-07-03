@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TestTag < Test::Unit::TestCase
+class TestTagHasAndBelongsToMany < Test::Unit::TestCase
   include TaskWarrior::Test::Validations
 
   def setup
