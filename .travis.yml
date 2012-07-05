@@ -1,8 +1,9 @@
 language: ruby
+
 rvm:
   - 1.9.3
 
 before_install:
  - sudo apt-get update
  - sudo apt-get install graphviz
- - sudo apt-get install task
+# - sudo apt-get install task
