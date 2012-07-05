@@ -36,7 +36,7 @@ Trollop::die :format, "must be one of #{Graph.formats.join(', ')}" unless Graph.
 
 begin
   repo = Repository.new(ARGF.read)
-  master = Graph.new
+  master = Graph.new(File.basename($0)) # TODO Move this to a CommandlinePresenter
 
   # Add all projects (will add their tasks and dependencies recursively)
   repo.projects.each do |project|
