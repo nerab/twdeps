@@ -12,3 +12,4 @@ before_install:
  - echo | sudo add-apt-repository ppa:ultrafredde/ppa
  - sudo apt-get update
  - sudo apt-get install task
+ - sudo apt-get install graphviz
