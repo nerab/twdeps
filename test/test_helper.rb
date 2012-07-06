@@ -1,6 +1,3 @@
-# require 'bundler'
-# Bundler.require
-
 require 'twtest'
 require 'twdeps'
 require 'helpers/plain_graph_parser.rb'

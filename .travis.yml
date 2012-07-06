@@ -3,7 +3,12 @@ language: ruby
 rvm:
   - 1.9.3
 
+before_script:
+ - mkdir ~/.task
+ - echo data.location=~/.task > ~/.taskrc
+ - task count
+
 before_install:
+ - echo | sudo add-apt-repository ppa:ultrafredde/ppa
  - sudo apt-get update
- - sudo apt-get install graphviz
-# - sudo apt-get install task
+ - sudo apt-get install task
