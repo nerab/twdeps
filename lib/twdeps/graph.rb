@@ -29,7 +29,7 @@ module TaskWarrior
 
       #
       # Build a new Graph for +thing+
-      # # TODO Accept a presenter that would default to GlobalPresenter with {:rankdir => 'BT'}
+      #
       def initialize(name = :G, attributes = [])
         @graph = GraphViz::new(name, attributes)
         @dependencies = []
