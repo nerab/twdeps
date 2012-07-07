@@ -1,19 +1,6 @@
 require 'json'
 
 module TaskWarrior
-  class SimpleTag
-    attr_reader :name, :tasks
-
-    def initialize(name)
-      @name = name
-      @tasks = []
-    end
-
-    def <<(task)
-      @tasks << task unless @tasks.include?(task)
-    end
-  end
-
   class Repository
     def initialize(input)
       @tasks = {}
