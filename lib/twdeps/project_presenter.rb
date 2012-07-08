@@ -5,8 +5,8 @@ module TaskWarrior
     #
     class ProjectPresenter < Presenter
       def initialize(project)
-        self.attributes = {:label => project.name}
         self.id = "cluster_#{project.name}"
+        self.attributes = {:label => project.name}
       end
     end
   end

@@ -2,6 +2,7 @@ module TaskWarrior
   module Dependencies
     class NullPresenter < Presenter
       def initialize
+        super
         self.id = 'null'
         self.attributes = {:label => 'Unknown', :fontcolor => 'red'}
       end

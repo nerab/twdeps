@@ -6,7 +6,7 @@ module TaskWarrior
     class Presenter
       def initialize(id)
         @id = id
-        @attributes = {}
+        @attributes = {:label => id, :labelloc => 'top'}
       end
 
       def attributes

@@ -26,6 +26,7 @@ where [options] are:
 
 EOS
   opt :format, "Specify output format", :default => 'svg'
+  opt :title,  "Specify title", :default => 'Task Dependencies'
   opt :trace,  "Enable trace output", :default => false
 end
 
@@ -36,7 +37,7 @@ Trollop::die :format, "must be one of #{Graph.formats.join(', ')}" unless Graph.
 
 begin
   repo = Repository.new(ARGF.read)
-  master = Graph.new(CommandlinePresenter.new(File.basename($0))) 
+  master = Graph.new(Presenter.new(opts[:title]))
 
   # Add all projects (will add their tasks and dependencies recursively)
   repo.projects.each do |project|

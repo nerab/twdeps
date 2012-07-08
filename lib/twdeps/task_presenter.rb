@@ -9,9 +9,11 @@ module TaskWarrior
         self.attributes = {
           :label => task.description,
           :tooltip => "Status: #{task.status}"
-          }.tap{|attrs|
-            attrs.merge!({:fontcolor => 'gray', :color => 'gray'}) if :completed == task.status
-          }
+        }
+
+        if :completed == task.status
+          self.attributes.merge!({:fontcolor => 'gray', :color => 'gray'})
+        end
       end
     end
   end
