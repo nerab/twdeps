@@ -1,15 +1,5 @@
 module TaskWarrior
   module Dependencies
-    class NullPresenter
-      def attributes
-        {:label => 'Unknown', :fontcolor => 'red'}
-      end
-
-      def id
-        'null'
-      end
-    end
-
     # Builds a dependency graph
     #
     # +thing+ is added as node with all of its dependencies. A presenter is used to present the task as node label.
@@ -30,8 +20,13 @@ module TaskWarrior
       #
       # Build a new Graph for +thing+
       #
-      def initialize(name = :G, attributes = [])
-        @graph = GraphViz::new(name, attributes)
+      def initialize(presenter_or_id)
+        if presenter_or_id.respond_to?(:attributes)
+          @graph = GraphViz::new(presenter_or_id.id, presenter_or_id.attributes)
+        else
+          @graph = GraphViz::new(presenter_or_id)
+        end
+
         @dependencies = []
         @edges = []
       end
@@ -52,7 +47,7 @@ module TaskWarrior
         else
           # it's a project
           project = task_or_project
-          cluster = Graph.new(presenter(project).id, presenter(project).attributes)
+          cluster = Graph.new(presenter(project))
 
           project.tasks.each do |task|
             cluster << task

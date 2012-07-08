@@ -3,17 +3,10 @@ module TaskWarrior
     #
     # Presents a project's attributes suitable for a GraphViz cluster
     #
-    class ProjectPresenter
+    class ProjectPresenter < Presenter
       def initialize(project)
-        @project = project
-      end
-      
-      def attributes
-        {:label => @project.name}
-      end
-      
-      def id
-        "cluster_#{@project.name}"
+        self.attributes = {:label => project.name}
+        self.id = "cluster_#{project.name}"
       end
     end
   end

@@ -8,7 +8,7 @@ module TaskWarrior
       def setup
         repo = TaskWarrior::Repository.new(File.read(fixture('party_taxes.json')))
 
-        plain = TaskWarrior::Dependencies::Graph.new
+        plain = TaskWarrior::Dependencies::Graph.new(self.class.name)
 
         repo.tasks.each do |task|
           plain << task
