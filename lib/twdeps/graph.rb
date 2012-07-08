@@ -69,7 +69,7 @@ module TaskWarrior
       def create_edges(nodeA, nodes)
         nodes.each do |node|
           nodeB = find_or_create_node(node)
-          create_edge(nodeA, nodeB)
+          create_edge(nodeB, nodeA)
         end
       end
 
@@ -85,7 +85,9 @@ module TaskWarrior
         edge = [nodeA, nodeB]
         unless @edges.include?(edge) # GraphViz lacks get_edge, so we need to track existing edges ourselfes
           @edges << edge
-          @graph.add_edges(nodeA, nodeB)
+
+          # We present the edges in the sense of "nodeB depends on nodeA"
+          @graph.add_edges(nodeA, nodeB, :dir => 'back', :tooltip => "#{nodeB['label']} depends on #{nodeA['label']}")
         end
       end
 
