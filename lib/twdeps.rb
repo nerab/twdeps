@@ -1,15 +1,6 @@
+require "taskwarrior"
+
 require "twdeps/version"
-
-# task-related
-require "twdeps/task"
-require "twdeps/project"
-require "twdeps/tag"
-
-require "twdeps/task_mapper"
-require "twdeps/priority_mapper"
-require "twdeps/task_repository"
-
-# graph-related
 require "twdeps/graph"
 require "twdeps/presenter"
 require "twdeps/task_presenter"
