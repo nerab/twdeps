@@ -26,16 +26,16 @@ Result:
     # See [Limitations](Limitations) below for why we need the extra task parms
     task export rc.json.array=on rc.verbose=nothing | twdeps > deps.png
   
-    # Same but spefify output format
-    task export | twdeps --format svg > deps.svg
+    # Same but specify output format
+    task export rc.json.array=on rc.verbose=nothing | twdeps --format svg > deps.svg
 
     # Create a graph from a previously exported file
-    task export > tasks.json
+    task export rc.json.array=on rc.verbose=nothing > tasks.json
     cat tasks.json | twdeps > deps.png
   
     # Display graph in browser without creating an intermediate file
     # Requires bcat to be installed
-    task export | twdeps --format svg | bcat
+    task export rc.json.array=on rc.verbose=nothing | twdeps --format svg | bcat
 
 ## Dependencies
 
