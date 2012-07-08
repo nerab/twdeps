@@ -15,7 +15,7 @@ module TaskWarrior
         p = Presenter.new(foo)
         assert_equal(foo, p.id)
         assert_not_nil(p.attributes)
-        assert_empty(p.attributes)
+        assert_equal({:label=>"foo", :labelloc=>"top"}, p.attributes)
       end
     
       def test_null_presentation
