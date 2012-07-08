@@ -4,7 +4,8 @@ rvm:
   - 1.9.3
 
 before_script:
- - task rc.confirmation=off version
+ - mkdir ~/.task
+ - echo data.location=~/.task > ~/.taskrc
 
 before_install:
  - echo | sudo add-apt-repository ppa:ultrafredde/ppa
