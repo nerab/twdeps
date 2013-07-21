@@ -45,7 +45,7 @@ The graph is generated with [ruby-graphviz](https://github.com/glejeune/Ruby-Gra
 
 ## Limitations
 
-Due to [two](http://taskwarrior.org/issues/1017) [bugs](http://taskwarrior.org/issues/1013) in JSON export, TaskWarrior 2.0 needs the command line options `rc.json.array=on` and `rc.verbose=nothing`.
+Due to [two](http://taskwarrior.org/issues/1017) [bugs](http://taskwarrior.org/issues/1013) in JSON export, TaskWarrior versions before 2.1 needs the additional command line options `rc.json.array=on` and `rc.verbose=nothing`.
 
 ## Contributing
 
