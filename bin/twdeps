@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-require 'bundler'
-Bundler.require
-
+require 'rubygems'
+require 'bundler/setup'
+require 'twdeps'
 require 'trollop'
 
 def log(msg)
@@ -14,8 +14,11 @@ def die(msg = nil)
   exit 1
 end
 
+include TaskWarrior
+include TaskWarrior::Dependencies
+
 opts = Trollop::options do
-  version "#{File.basename($0)} v#{TaskWarrior::Dependencies::VERSION} (c) 2012 Nicolas E. Rabenau"
+  version "#{File.basename($0)} v#{VERSION} (c) 2012 Nicolas E. Rabenau"
   banner <<-EOS
 Visualizes dependencies between TaskWarrior tasks.
 
@@ -29,9 +32,6 @@ EOS
   opt :title,  "Specify title", :default => 'Task Dependencies'
   opt :trace,  "Enable trace output", :default => false
 end
-
-include TaskWarrior
-include TaskWarrior::Dependencies
 
 Trollop::die :format, "must be one of #{Graph.formats.join(', ')}" unless Graph.formats.include?(opts[:format])
 

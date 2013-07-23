@@ -13,7 +13,7 @@ module TaskWarrior
     class Graph
       class << self
         def formats
-          Constants::FORMATS
+          GraphViz::Constants::FORMATS
         end
       end
 
