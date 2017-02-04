@@ -50,6 +50,8 @@ The graph is generated with [ruby-graphviz](https://github.com/glejeune/Ruby-Gra
 
 [bcat](http://rtomayko.github.com/bcat/) is required for piping into a browser.
 
+[bundler](http://bundler.io/) is also required.
+
 ## Limitations
 
 Due to [two](http://taskwarrior.org/issues/1017) [bugs](http://taskwarrior.org/issues/1013) in its JSON export, TaskWarrior versions before 2.1 need the additional command line options `rc.json.array=on` and `rc.verbose=nothing`.
