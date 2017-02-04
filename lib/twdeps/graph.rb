@@ -17,6 +17,10 @@ module TaskWarrior
         end
       end
 
+      def is_deleted_or_absent(node)
+        return node == nil || node.status == :deleted
+      end
+
       #
       # Build a new Graph for +thing+
       #
@@ -34,14 +38,16 @@ module TaskWarrior
       def <<(task_or_project)
         if task_or_project.respond_to?(:dependencies)
           task = task_or_project
-          nodeA = find_or_create_node(task)
-          create_edges(nodeA, task.dependencies)
+          unless is_deleted_or_absent(task)
+            nodeA = find_or_create_node(task)
+            create_edges(nodeA, task.dependencies)
 
-          # resolve all dependencies we don't know yet
-          task.dependencies.each do |dependency|
-            unless @dependencies.include?(dependency)
-              @dependencies << dependency
-              self << dependency
+            # resolve all dependencies we don't know yet
+            task.dependencies.each do |dependency|
+              unless @dependencies.include?(dependency) || is_deleted_or_absent(dependency)
+                @dependencies << dependency
+                self << dependency
+              end
             end
           end
         else
@@ -67,9 +73,12 @@ module TaskWarrior
 
     private
       def create_edges(nodeA, nodes)
+
         nodes.each do |node|
-          nodeB = find_or_create_node(node)
-          create_edge(nodeB, nodeA)
+          unless is_deleted_or_absent(node)
+            nodeB = find_or_create_node(node)
+            create_edge(nodeB, nodeA)
+          end
         end
       end
 
@@ -78,7 +87,9 @@ module TaskWarrior
       end
 
       def create_node(thing)
-        @graph.add_nodes(presenter(thing).id, presenter(thing).attributes)
+        if(!is_deleted_or_absent(thing))
+          @graph.add_nodes(presenter(thing).id, presenter(thing).attributes)
+        end
       end
 
       def create_edge(nodeA, nodeB)
