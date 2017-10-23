@@ -1,6 +1,8 @@
 *.gem
 *.rbc
+.DS_Store
 .bundle
+.cache_rake_t
 .config
 .yardoc
 InstalledFiles
@@ -14,4 +16,3 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
-.cache_rake_t
