@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = TaskWarrior::Dependencies::VERSION
 
-  gem.add_dependency 'ruby-graphviz', '~> 1.0.7'
+  gem.add_dependency 'ruby-graphviz', '>= 1.0.7', '< 1.3.0'
   gem.add_dependency 'trollop', '~> 1'
   gem.add_dependency 'taskwarrior', '~> 0.0.6'
   gem.add_development_dependency 'twtest', '~> 0.0.6'
