@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'trollop', '~> 1'
   gem.add_dependency 'taskwarrior', '~> 0.0.6'
   gem.add_development_dependency 'twtest', '~> 0.0.6'
-  gem.add_development_dependency 'guard-test', '~> 0.5'
+  gem.add_development_dependency 'guard-test', '~> 2.0'
   gem.add_development_dependency 'guard-bundler', '~> 1.0'
   gem.add_development_dependency 'rake', '~> 12.3'
 end
