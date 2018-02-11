@@ -1,3 +1,4 @@
+require 'minitest/autorun'
 require 'twtest'
 require 'twdeps'
 require 'helpers/plain_graph_parser.rb'
@@ -9,7 +10,7 @@ module TaskWarrior
         File.join(File.dirname(__FILE__), 'fixtures', name)
       end
     end
-    
+
     module Validations
       def assert_valid(task)
         assert(task.valid?, error_message(task.errors))
