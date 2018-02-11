@@ -18,7 +18,7 @@ include TaskWarrior
 include TaskWarrior::Dependencies
 
 opts = Trollop::options do
-  version "#{File.basename($0)} v#{VERSION} (c) 2012 Nicolas E. Rabenau"
+  version "#{File.basename($0)} v#{VERSION} (c) 2012-#{Time.now.year} Nicolas E. Rabenau"
   banner <<-EOS
 Visualizes dependencies between TaskWarrior tasks.
 
