@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'ruby-graphviz'
   gem.add_dependency 'trollop'
-  gem.add_dependency 'taskwarrior'
+  gem.add_dependency 'taskwarrior', '~> 1.0.0'
   gem.add_development_dependency 'minitest'
   gem.add_development_dependency 'twtest'
   gem.add_development_dependency 'guard-minitest'

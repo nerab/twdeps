@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    twdeps (1.0.0)
+    twdeps (1.0.1)
       ruby-graphviz
-      taskwarrior
+      taskwarrior (~> 1.0.0)
       trollop
 
 GEM
