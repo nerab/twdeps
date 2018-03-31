@@ -8,8 +8,6 @@ before_script:
  - echo data.location=~/.task > ~/.taskrc
 
 before_install:
-
-before_install:
  - sudo apt-get update
  - sudo apt-get install task
  - sudo apt-get install graphviz
