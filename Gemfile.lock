@@ -18,7 +18,7 @@ GEM
       tzinfo (~> 1.1)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
-    ffi (1.9.23)
+    ffi (1.9.25)
     formatador (0.2.5)
     guard (2.14.2)
       formatador (>= 0.2.4)
