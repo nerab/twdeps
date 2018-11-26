@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.version       = TaskWarrior::Dependencies::VERSION
 
   gem.add_dependency 'ruby-graphviz'
-  gem.add_dependency 'trollop'
+  gem.add_dependency 'optimist'
   gem.add_dependency 'taskwarrior', '~> 1.0.0'
   gem.add_development_dependency 'minitest'
   gem.add_development_dependency 'twtest'

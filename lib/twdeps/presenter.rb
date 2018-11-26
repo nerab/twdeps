@@ -17,9 +17,9 @@ module TaskWarrior
         @id
       end
 
-      protected
+    protected
       attr_writer :id, :attributes
     end
-   end
- end
- 
+  end
+end
+

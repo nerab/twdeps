@@ -49,8 +49,8 @@ module TaskWarrior
           project = task_or_project
           cluster = Graph.new(presenter(project))
 
-          project.tasks.each do |task|
-            cluster << task
+          project.tasks.each do |t|
+            cluster << t
           end
 
           # add all nodes and edges from cluster as a subgraph to @graph

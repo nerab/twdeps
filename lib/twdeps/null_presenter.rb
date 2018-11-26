@@ -6,6 +6,6 @@ module TaskWarrior
         self.attributes = {:label => 'Unknown', :fontcolor => 'red'}
       end
     end
-   end
- end
- 
+  end
+end
+

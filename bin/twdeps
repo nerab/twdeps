@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'twdeps'
-require 'trollop'
+require 'optimist'
 
 def log(msg)
   STDERR.puts "#{File.basename($0)}: #{msg}"
@@ -17,7 +17,7 @@ end
 include TaskWarrior
 include TaskWarrior::Dependencies
 
-opts = Trollop::options do
+opts = Optimist::options do
   version "#{File.basename($0)} v#{VERSION} (c) 2012-#{Time.now.year} Nicolas E. Rabenau"
   banner <<-EOS
 Visualizes dependencies between TaskWarrior tasks.
@@ -33,7 +33,7 @@ EOS
   opt :trace,  "Enable trace output", :default => false
 end
 
-Trollop::die :format, "must be one of #{Graph.formats.join(', ')}" unless Graph.formats.include?(opts[:format])
+Optimist::die :format, "must be one of #{Graph.formats.join(', ')}" unless Graph.formats.include?(opts[:format])
 
 begin
   repo = Repository.new(ARGF.read)
