@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    twdeps (1.0.1)
+    twdeps (1.0.2)
       optimist
       ruby-graphviz
       taskwarrior (~> 1.0.0)
@@ -61,7 +61,7 @@ GEM
     ruby-graphviz (1.2.4)
     ruby_dep (1.5.0)
     shellany (0.0.1)
-    taskwarrior (1.0.0)
+    taskwarrior (1.0.2)
       activemodel
     thor (0.20.3)
     thread_safe (0.3.6)
