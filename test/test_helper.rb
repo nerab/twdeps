@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require 'pry-byebug'
 require 'twtest'
 require 'twdeps'
 require 'helpers/plain_graph_parser.rb'

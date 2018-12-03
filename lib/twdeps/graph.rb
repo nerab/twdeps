@@ -39,10 +39,11 @@ module TaskWarrior
 
           # resolve all dependencies we don't know yet
           task.dependencies.each do |dependency|
-            unless @dependencies.include?(dependency)
-              @dependencies << dependency
-              self << dependency
-            end
+            next if @dependencies.include?(dependency)
+            next if dependency.nil?
+
+            @dependencies << dependency
+            self << dependency
           end
         else
           # it's a project

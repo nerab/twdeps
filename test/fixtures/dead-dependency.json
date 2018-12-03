@@ -1,0 +1,14 @@
+[{
+  "id": 42,
+  "depends": "9c16b278-6c79-407e-be1b-3eb65e4b11be",
+  "description": "Handle dead depends",
+  "entry": "20101121T205311Z",
+  "project": "FixAllTheBugs",
+  "status": "pending",
+  "uuid": "2170fecc-0646-4320-99e0-75ed3c365f1c",
+  "annotations": [{
+    "entry": "20130210T173348Z",
+    "description": "This is a comment"
+  }],
+  "urgency": -1.2
+}]
