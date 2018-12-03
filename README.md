@@ -17,13 +17,17 @@ Result:
 
 ![party](https://raw.github.com/nerab/twdeps/master/examples/party.png)
 
-For the impatient: The JSON export is also available as [party.json](https://raw.github.com/nerab/twdeps/master/test/fixtures/party.json). If you download it, the command
+For the impatient: The JSON export is also available as [party.json](https://raw.github.com/nerab/twdeps/master/test/fixtures/party.json). Once you installed `twdeps`, the command
 
 ```bash
-$ twdeps -f png party.json > party.png
+$ curl https://raw.githubusercontent.com/nerab/twdeps/master/test/fixtures/party.json | twdeps -f png > party.png
 ```
 
-will generate `party.png` in the current directory.
+will generate `party.png` in the current directory. If you don't want to download the JSON file, try the local oen that comes with `twdeps`:
+
+```bash
+$ twdeps $(dirname $(gem which twdeps))/../test/fixtures/party.json -f png > party.png
+```
 
 ## Installation
 
