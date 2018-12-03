@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    twdeps (1.0.2)
+    twdeps (1.1.0)
       optimist
       ruby-graphviz
       taskwarrior (~> 1.0.0)
