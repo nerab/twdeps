@@ -69,7 +69,7 @@ GEM
       activemodel
     thor (0.20.3)
     thread_safe (0.3.6)
-    twtest (1.0.1)
+    twtest (1.1.0)
       minitest
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
