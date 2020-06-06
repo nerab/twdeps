@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'optimist'
   gem.add_dependency 'taskwarrior', '~> 1.0.0'
   gem.add_development_dependency 'minitest'
-  gem.add_development_dependency 'twtest', '~> 1.1.0'
+  gem.add_development_dependency 'twtest', '~> 1.2.0'
   gem.add_development_dependency 'guard-minitest'
   gem.add_development_dependency 'guard-bundler'
   gem.add_development_dependency 'rake'

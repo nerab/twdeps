@@ -70,7 +70,7 @@ GEM
       activemodel
     thor (1.0.1)
     thread_safe (0.3.6)
-    twtest (1.1.0)
+    twtest (1.2.0)
       minitest
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
@@ -86,7 +86,7 @@ DEPENDENCIES
   pry-byebug
   rake
   twdeps!
-  twtest (~> 1.1.0)
+  twtest (~> 1.2.0)
 
 BUNDLED WITH
    1.17.3
