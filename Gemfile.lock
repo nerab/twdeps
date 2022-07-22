@@ -9,17 +9,16 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (6.0.3.1)
-      activesupport (= 6.0.3.1)
-    activesupport (6.0.3.1)
+    activemodel (7.0.3.1)
+      activesupport (= 7.0.3.1)
+    activesupport (7.0.3.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (>= 0.7, < 2)
-      minitest (~> 5.1)
-      tzinfo (~> 1.1)
-      zeitwerk (~> 2.2, >= 2.2.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
     byebug (11.1.3)
     coderay (1.1.3)
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.10)
     ffi (1.13.0)
     formatador (0.2.5)
     guard (2.16.2)
@@ -39,7 +38,7 @@ GEM
     guard-minitest (2.4.6)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
-    i18n (1.8.3)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -69,12 +68,10 @@ GEM
     taskwarrior (1.0.2)
       activemodel
     thor (1.0.1)
-    thread_safe (0.3.6)
     twtest (1.2.0)
       minitest
-    tzinfo (1.2.7)
-      thread_safe (~> 0.1)
-    zeitwerk (2.3.0)
+    tzinfo (2.0.5)
+      concurrent-ruby (~> 1.0)
 
 PLATFORMS
   ruby
