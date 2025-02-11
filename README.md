@@ -64,7 +64,7 @@ $ gem install twdeps
   task export | twdeps --format svg | bcat
   ```
 
-  [bcat](http://rtomayko.github.com/bcat/) is required for piping into a browser.
+  [bcat](https://rtomayko.github.io/bcat/) is required for piping into a browser.
 
 ## Dependencies
 
